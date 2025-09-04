@@ -10,13 +10,14 @@ module lab2_eo_tb();
     logic clk, reset;
     logic [3:0] s1, s2;
     logic [4:0] led;
-    logic [6:0] seg1, seg2;
-    logic [18:0] expected; //  14 bits of seven segment display output, 5 bits LED output
+    logic [6:0] seg;
+    logic display1, display2;
+    logic [13:0] expected; //  7 bits segment output, 2 bits of display toggles, 5 bits LED output (14 total)
     logic [31:0] vectornum, errors;
-    logic [26:0] testvectors[10000:0];  //  8 bits of input, 14 bits of seven segment display output, 5 bits LED output
+    logic [21:0] testvectors[10000:0];  //  8 bits of input, 14 output (22 total)
 
     // instantiate device under test
-    lab2_eo dut(s1, s2, seg1, seg2, led);
+    lab2_eo dut(s1, s2, seg, display1, display2, led);
 
     // generate clock
     always begin
@@ -39,13 +40,13 @@ module lab2_eo_tb();
     // check results on falling edge of clk
     always @(negedge clk)
         if (~reset) begin // skip during reset
-            if ({seg1, seg2, led} !== expected) begin // check result
+            if ({seg, display1, display2, led} !== expected) begin // check result
                 $display("Error: input = %b, %b", s1, s2);
-                $display("Output: seg1: %b, seg2: %b, led: %b. (%b expected)", seg1, seg2, led, expected);
+                $display("Output: seg: %b, dispaly1: %b, display2: %b, led: %b. (%b expected)", seg, display1, display2, led, expected);
                 errors = errors + 1;
             end
             vectornum = vectornum + 1;
-            if (testvectors[vectornum] === 27'bx) begin
+            if (testvectors[vectornum] === 22'bx) begin
                 $display("%d tests completed with %d errors", vectornum, errors);
                 $stop;
             end
