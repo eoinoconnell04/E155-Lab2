@@ -25,10 +25,10 @@ module lab2_eo(
     // Initialize clock divider (Divides by 4800, dividing 48 MHz to 10 kHz)
     divider #(.TOGGLE_COUNT(2400)) div	(.clk(clk), .reset(reset), .divided_clk(divided_clk));
 
-	// Seven segment display Input Mux
+	// Seven segment display Input Mux (if divided_clk is high, then s1 selected. If divided_clk is low then s2 selected)
 	assign display_input = divided_clk ? s1 : s2;
 
-	// Seven segment display Output Demux
+	// Seven segment display Output Demux (if divided_clk is high, then seg1 is driven. If divided_clk is low then seg2 is driven. (If not driven then all leds are off))
 	assign seg1 = divided_clk ? display_output : 7'b1111111;
 	assign seg2 = divided_clk ? 7'b1111111 : display_output;
 
