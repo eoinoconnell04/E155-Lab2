@@ -31,7 +31,11 @@ with open("lab2_eo_tb.tv", "a") as f_bin:
             seg2 = seg_table[s2]
             led = format(s1 + s2, "05b")  # 5-bit sum
 
-            # Underscore-separated vector
-            full_vector = f"{s1:04b}_{s2:04b}_{seg1}_{seg2}_{led}"
-            f_bin.write(full_vector + "\n")
+            # Case 1: divided_clk = 0 → seg2 active, seg1 blank
+            vector_seg2 = f"{s1:04b}_{s2:04b}_1111111_{seg2}_{led}"
+            f_bin.write(vector_seg2 + "\n")
+
+            # Case 2: divided_clk = 1 → seg1 active, seg2 blank
+            vector_seg1 = f"{s1:04b}_{s2:04b}_{seg1}_1111111_{led}"
+            f_bin.write(vector_seg1 + "\n")
 

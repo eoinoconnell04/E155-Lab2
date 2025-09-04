@@ -30,7 +30,7 @@ module lab2_eo_tb();
         vectornum = 0; errors = 0; reset = 1; #22; reset = 0;
     end
 
-    // apply test vectors on rising edge of clk
+    // apply test vectors on rising edge of clk (this will effectively be both edges of divided_clk)
     always @(posedge clk) begin
         $display("%b", testvectors[vectornum]);
 		#1; {s1, s2, expected} = testvectors[vectornum];
