@@ -6,7 +6,7 @@ Module Function: Testbench to test top level module for E155 Lab 2.
 */
 
 
-module lab2_eo_tb_test_version();
+module lab2_eo_tb();
     logic clk, reset;
     logic [3:0] s1, s2;
     logic [4:0] led;
@@ -17,7 +17,7 @@ module lab2_eo_tb_test_version();
     logic [21:0] testvectors[10000:0];  //  8 bits of input, 14 output (22 total)
 
     // instantiate device under test
-    lab2_eo dut(clk, reset, s1, s2, seg, display1, display2, led);
+    lab2_eo_test_version dut(clk, reset, s1, s2, seg, display1, display2, led);
 
     // generate clock
     always begin
