@@ -9,10 +9,10 @@ Module Function: Testbench to test top level module for E155 Lab 2.
 module lab2_eo_tb();
     logic clk, reset;
     logic [3:0] s1, s2;
-    logic [4:0] led;
-    logic [6:0] seg;
-    logic display1, display2;
-    logic [13:0] expected; //  7 bits segment output, 2 bits of display toggles, 5 bits LED output (14 total)
+    logic [4:0] led, led_ex;
+    logic [6:0] seg, seg_ex;
+    logic display1, display2, display1_ex, display2_ex;
+    //logic [13:0] expected; //  7 bits segment output, 2 bits of display toggles, 5 bits LED output (14 total)
     logic [31:0] vectornum, errors;
     logic [21:0] testvectors[10000:0];  //  8 bits of input, 14 output (22 total)
 
@@ -34,15 +34,15 @@ module lab2_eo_tb();
     // apply test vectors on rising edge of clk (this will effectively be both edges of divided_clk)
     always @(posedge clk) begin
         $display("%b", testvectors[vectornum]);
-		#1; {s1, s2, expected} = testvectors[vectornum];
+		#1; {s1, s2, seg_ex, display1_ex, display2_ex, led_ex} = testvectors[vectornum];
     end
 
     // check results on falling edge of clk
     always @(negedge clk)
         if (~reset) begin // skip during reset
-            if ({seg, display1, display2, led} !== expected) begin // check result
+            if ({seg, display1, display2, led} !== {seg_ex, display1_ex, display2_ex, led_ex}) begin // check result
                 $display("Error: input = %b, %b", s1, s2);
-                $display("Output: seg: %b, dispaly1: %b, display2: %b, led: %b. (%b expected)", seg, display1, display2, led, expected);
+                $display("Output: seg: %b, dispaly1: %b, display2: %b, led: %b. (Expected: seg: %b, dispaly1: %b, display2: %b, led: %b)", seg, display1, display2, led, seg_ex, display1_ex, display2_ex, led_ex);
                 errors = errors + 1;
             end
             vectornum = vectornum + 1;
