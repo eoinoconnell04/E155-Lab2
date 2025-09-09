@@ -21,7 +21,7 @@ module divider
 
     // Clock Divider
     always_ff @(posedge clk) begin
-        if (reset) begin
+        if (reset == 0) begin
             counter     <= 0;
             divided_clk <= 0;
         end 
