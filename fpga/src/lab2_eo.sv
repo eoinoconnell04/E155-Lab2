@@ -21,8 +21,8 @@ module lab2_eo(
 	// Internal high-speed oscillator (outputs 48 Mhz clk)
 	HSOSC hf_osc (.CLKHFPU(1'b1), .CLKHFEN(1'b1), .CLKHF(clk));
 
-    // Initialize clock divider (Divides by 4800, dividing 48 MHz to 10 kHz)
-    divider #(.TOGGLE_COUNT(2400)) div	(.clk(clk), .reset(reset), .divided_clk(divided_clk));
+    // Initialize clock divider (Goal frequency ~250 Hz, 48 Mhz / n = 250 Hz, n = 192000).
+    divider #(.TOGGLE_COUNT(192000)) div (.clk(clk), .reset(reset), .divided_clk(divided_clk));
 
 	// Seven segment display Input Mux (if divided_clk is high, then s1 selected. If divided_clk is low then s2 selected)
 	assign display_input = divided_clk ? s1 : s2;
