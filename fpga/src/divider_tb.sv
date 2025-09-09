@@ -14,7 +14,7 @@ module divider_tb();
     logic testvectors[10000:0];
 
     // instantiate device under test
-    divider #(.TOGGLE_COUNT(10)) dut (.clk(clk), .reset(reset), .divided_clk(divided_clk));
+    divider #(.TOGGLE_COUNT(10)) dut (.clk(clk), .reset(~reset), .divided_clk(divided_clk));
 
     // generate clock
     always begin

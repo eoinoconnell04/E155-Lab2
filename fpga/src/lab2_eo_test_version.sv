@@ -2,9 +2,10 @@
 Author: Eoin O'Connell
 Email: eoconnell@hmc.edu
 Date: Sep. 3, 2025
-Module Function: This is the top level module for E155 Lab 2. It performs 2 main functions:
-1. Controls two seven segment display as a function of two different 4 input dip switches.
-2. Controls 5 led lights that display the binary sum of the two hex digits.
+Module Function: This is the testbench version of the top level module for E155 Lab 2. 
+Modificiations:
+- High speed oscillator turned off and takes clk as an input.
+- Toggle count set to 0 (divides clk by 2)
 */
 module lab2_eo_test_version(
 	input  logic clk, reset,

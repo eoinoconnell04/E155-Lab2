@@ -15,6 +15,7 @@ module lab2_eo(
 	output logic [4:0] led
 );
 
+	// Initialize internal signals
 	logic clk, divided_clk;
 	logic [3:0] display_input;
 	
